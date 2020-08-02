@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css?family=Jost&display=swap" rel="stylesheet">
+    <title>Calculator</title>
+</head>
+<body id='body'>
+    <div id="wrapper">
+        <input type="text" id="calculatorInput" disabled placeholder='Write something'>
+
+        <button onClick='clearString()' class='orange'>AC</button>
+        <button onClick='addSymb("()")'>()</button>
+        <button onClick='addSymb("/")'>/</button>
+        <button onClick='deleteSymb()'>DEL</button>
+ 
+        <button onClick='addSymb("1")'>1</button>
+        <button onClick='addSymb("2")'>2</button>
+        <button onClick='addSymb("3")'>3</button>
+        <button onClick='addSymb("-")'>-</button>
+
+        <button onClick='addSymb("4")'>4</button>
+        <button onClick='addSymb("5")'>5</button>
+        <button onClick='addSymb("6")'>6</button>
+        <button onClick='addSymb("+")'>+</button>
+ 
+        <button onClick='addSymb("7")'>7</button>
+        <button onClick='addSymb("8")'>8</button>
+        <button onClick='addSymb("9")'>9</button>
+        <button onClick='addSymb("*")'>*</button>
+
+        <button onClick='addSymb(".")'>.</button>
+        <button onClick='addSymb("0")'>0</button>
+        <button onClick='solveProblem()' class='equality'>=</button>
+    </div>
+
+    <script src='script.js'></script>
+</body>
+</html>

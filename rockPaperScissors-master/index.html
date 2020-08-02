@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Rock-Paper-Scissors</title>
+</head>
+<body>
+        <section id="opponent">
+            <h2>Your Opponent</h2>
+            <div id="opponentIfChoose" class="enable" >
+                <span> Random-bot is choosing </span>
+                <div id="loader"></div>
+            </div>
+            <div id="opponentIfChoosed" class="unable">
+                <span> Random-bot have choosed his item </span>
+                <div id="loaded">✔</div>
+            </div>
+            <div id="opponentOnShow" class="unable">
+                <span id="result"> You Won/Lost</span>
+                <button id="opponentChoiseButton">✂Scissors</button>
+            </div>
+        </section>
+
+        <section id="player">
+            <h2> Player </h2>
+            <div id="playerIfChoose" class='enable'>
+                <span> Make a choise</span>
+                <div id="playerButtons" >
+                    <button onClick="playerChoose('🖤Rock')">🖤Rock</button>
+                    <button onClick="playerChoose('✂Scissors')">✂Scissors</button>
+                    <button onClick="playerChoose('✉Paper')">✉Paper</button>
+                </div>
+            </div>
+            <div id="playerIfChoosed" class='unable'>
+                <span> Your Choise is:</span>
+                <button id="playerChoise">🖤Rock</button>
+            </div>
+        </section>
+
+        <button id="replay" onclick="start()">↺</button>
+        
+<script src="script.js"></script>
+</body>
+</html>
