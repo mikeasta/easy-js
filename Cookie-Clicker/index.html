@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Cookie clicker</title>
+</head>
+<body>
+    <div id="money-counter-container">
+        <p>Total money</p>
+        <div id="money-block">
+            $
+            <span id="counter">0</span>
+        </div>
+    </div>
+    <main>
+        <div id="passive-money-container">
+            <div class="passive-buff" >
+                <div class="text">
+                    <h4>Invite friend</h4>
+                    <p class='passive-buff' id='passive-0-buff'></p>
+                </div>
+                <button id='passive-0-btn' onClick="() => { passiveMoneyBuff(0) }"></button>
+            </div>
+            <div class="passive-buff" >
+                <div class="text">
+                    <h4>Call your family</h4>
+                    <p class='passive-buff' id='passive-1-buff'></p>
+                </div>
+                <button id='passive-1-btn' onClick="() => { passiveMoneyBuff(1) }"></button>
+            </div>
+        </div>
+        <div id="cookie-container">
+            <img src="https://pngimg.com/uploads/cookie/cookie_PNG13645.png" alt="cookie" id="cookie">
+        </div>
+        <div id="click-buffs-container">
+            <div class="click-buff" >
+                <div class="text">
+                    <h4>Strong finger</h4>
+                    <p class='click-buff' id='click-0-buff'></p>
+                </div>
+                <button id='click-0-btn' onClick="() => { clickBuff(0) }"></button>
+            </div>
+            <div class="click-buff" >
+                <div class="text">
+                    <h4>Super finger</h4>
+                    <p class='click-buff' id='click-1-buff'></p>
+                </div>
+                <button id='click-1-btn' onClick="() => { clickBuff(1) }"></button>
+            </div>
+        </div>
+    </main>
+    <section id="stats">
+        <p id='passive-stats'>Hello World</p>
+        <p id="click-stats">Hello World</p>
+    </section>
+    <script src='script.js'></script>
+
+</body>
+</html>
