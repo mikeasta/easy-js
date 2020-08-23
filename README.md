@@ -2,6 +2,4 @@
 📦Collection of easy and little JS-projects📦
 (HTML/CSS/ES)
 
-=== Calculator - Simple calculator realisation === 
-Shulte Table - For improoving peripheral vision ===
-RockPaperScissors - Little game with computer ===
+23.08.2020 - Cookie-clicker first update. -Changed shop styles, cleaned and corrected code
