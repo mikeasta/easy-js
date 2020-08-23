@@ -3,7 +3,7 @@ let counter = document.getElementById('counter');
 let cookie  = document.getElementById('cookie');
 
 // State
-let money = 995;
+let money = 0;
 let counterSpeed = 1;
 let clickProfit = 1;
 
@@ -11,23 +11,67 @@ let clickProfit = 1;
 let passiveData = [
     {
         buff: 1,
-        cost: 50
+        cost: 50,
+        multiply: 0,
     },
     {
         buff: 5,
-        cost: 500
-    }
+        cost: 500,
+        multiply: 0
+    },
+    {
+        buff: 15,
+        cost: 15000,
+        multiply: 0,
+    },
+    {
+        buff: 50,
+        cost: 500000,
+        multiply: 0
+    },
+    {
+        buff: 1000,
+        cost: 10000000,
+        multiply: 0
+    },
+    {
+        buff: 5000,
+        cost: 1000000000,
+        multiply: 0
+    },
 ];
 
 let clickData = [
     {
         buff: 1,
         cost: 50,
+        multiply: 0
     },
     {
         buff: 5,
         cost: 200,
-    }
+        multiply: 0
+    },
+    {
+        buff: 15,
+        cost: 15000,
+        multiply: 0,
+    },
+    {
+        buff: 50,
+        cost: 500000,
+        multiply: 0
+    },
+    {
+        buff: 1000,
+        cost: 10000000,
+        multiply: 0
+    },
+    {
+        buff: 5000,
+        cost: 1000000000,
+        multiply: 0
+    },
 ]
 
 // Event listeners
@@ -62,6 +106,7 @@ function passiveMoneyCounter() {
 function passiveMoneyBuff(id) {
     counterSpeed += passiveData[id].buff;
     passiveData[id].cost = Math.round( passiveData[id].cost * 1.1);
+    passiveData[id].multiply += 1;
 }
 
 // Passive money changing data
@@ -77,6 +122,16 @@ passiveData.forEach( (item, id) => {
     passiveMoneyChangeData(item, id);
 })
 
+// Multiply defining
+function multiplyModifyPassive() {
+    passiveData.forEach( (item, idx) => {
+        if (item.multiply >= 1) {
+            const span = document.getElementById(`passive-multiply-${idx}`);
+            span.innerHTML = `x${item.multiply}`;
+        }
+    })
+}
+
 // Buy system (passive)
 function buyPassive(item, id) {
     if (money >= item.cost) {
@@ -84,6 +139,9 @@ function buyPassive(item, id) {
         counter.innerHTML = money;
         passiveMoneyBuff(id);
         passiveMoneyChangeData(item, id);
+        multiplyModifyPassive();
+        passiveData.forEach( (item, idx) => bigNums(item, idx, 'passive'));
+
     }
 }
 
@@ -92,8 +150,8 @@ function buyPassive(item, id) {
 function clickChangeData(item, id) {
     const buff = document.getElementById(`click-${id}-buff`);
     const btn  = document.getElementById(`click-${id}-btn`);
-    buff.innerHTML = `+${item.buff}`;
-    btn.innerHTML = `$${item.cost}`
+    buff.innerHTML = `+${item.buff}/click`;
+    btn.innerHTML = `$${item.cost}`;    
 }
 
 // Clicking on cookie
@@ -112,6 +170,7 @@ clickData.forEach( (item, id) => {
 function clickBuff(id) {
     clickProfit += clickData[id].buff;
     clickData[id].cost = Math.round( clickData[id].cost * 1.1);
+    clickData[id].multiply += 1;
 }
 
 // Create an click effect
@@ -125,14 +184,24 @@ function clickEffect() {
     }, 2000);
 }
 
+// Multiply modify
+function multiplyModifyClick() {
+    clickData.forEach( (item, idx) => {
+        if (item.multiply >= 1) {
+            const span = document.getElementById(`click-multiply-${idx}`);
+            span.innerHTML = `x${item.multiply}`;
+        }
+    })
+}
 // buy system (click)
 function buyClick(item, id) {
     if (money >= item.cost) {
-        console.log('Hello')
         money -= item.cost;
         counter.innerHTML = money;
         clickBuff(id);
         clickChangeData(item, id);
+        multiplyModifyClick();
+        clickData.forEach( (item, idx) => bigNums(item, idx, 'click'));
     }
 }
 
@@ -144,6 +213,45 @@ function updateStats() {
     passiveStats.innerHTML = `Passive: +${counterSpeed}/sec`;
 }
 
+// Modify BigNums 
+function bigNums(item, idx, string) {
+    console.log(idx);
+        const btn = document.getElementById(`${string}-${idx}-btn`)
+        if (item.cost > 999999999) {
+            btn.innerHTML = 
+                `$${Math.floor(item.cost / 1000000000) +
+                '.' + 
+                String((item.cost / 1000000000 - Math.floor(item.cost / 1000000000)) * 10).slice(0, 1)}bil`;
+        } else if (item.cost > 999999) {
+            btn.innerHTML = 
+                `$${Math.floor(item.cost / 1000000) +
+                '.' + 
+                String((item.cost / 1000000 - Math.floor(item.cost / 1000000)) * 10).slice(0, 1)}mil`;
+        } else if (item.cost > 999) {
+            btn.innerHTML = 
+                `$${Math.floor(item.cost / 1000) +
+                '.' + 
+                String((item.cost / 1000 - Math.floor(item.cost / 1000)) * 10).slice(0, 1)}k`;
+        } else {
+            btn.innerHTML = `$${item.cost}`;
+        }
+}
+clickData.forEach( (item, idx) => bigNums(item, idx, 'click'));
+passiveData.forEach( (item, idx) => bigNums(item, idx, 'passive'));
+
 // Initial callings
 updateStats();
+multiplyModifyPassive();
+multiplyModifyClick();
 passiveMoneyCounter();
+
+
+// if (item.cost > 999999999) {
+//     btn.innerHTML = `$${item.cost / 1000000000}bil`;
+// } else if (item.cost > 999999) {
+//     btn.innerHTML = `$${item.cost / 1000000}mil`;
+// } else if (item.cost > 999) {
+//     btn.innerHTML = `$${item.cost / 1000}k`;
+// } else {
+//     btn.innerHTML = `$${item.cost}`;
+// }
