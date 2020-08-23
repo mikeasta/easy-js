@@ -1,9 +1,13 @@
+// DOM elements
 let counter = document.getElementById('counter');
 let cookie  = document.getElementById('cookie');
-let money = 0;
+
+// State
+let money = 995;
 let counterSpeed = 1;
 let clickProfit = 1;
-let timer;
+
+// Buffs data
 let passiveData = [
     {
         buff: 1,
@@ -26,7 +30,6 @@ let clickData = [
     }
 ]
 
-
 // Event listeners
 cookie.addEventListener('click', cookieClick);
 
@@ -46,10 +49,10 @@ clickData.forEach( (item, id) => {
     });
 });
 
-
+// PASSIVE SECTION
 // Passive money earn
 function passiveMoneyCounter() {
-    timer = setInterval(() => {
+    setInterval(() => {
         money += counterSpeed;
         counter.innerHTML = money;
     }, 1000)
@@ -69,33 +72,12 @@ function passiveMoneyChangeData(item, id) {
     btn.innerHTML = `$${item.cost}`
 }
 
-// Click buff changing data
-function clickChangeData(item, id) {
-    const buff = document.getElementById(`click-${id}-buff`);
-    const btn  = document.getElementById(`click-${id}-btn`);
-    buff.innerHTML = `+${item.buff}`;
-    btn.innerHTML = `$${item.cost}`
-}
-
-
-// Clicking on cookie
-function cookieClick() {
-    money += clickProfit;
-    counter.innerHTML = money;
-    clickEffect();
-} 
-
 // Define every passive increasing
 passiveData.forEach( (item, id) => {
     passiveMoneyChangeData(item, id);
 })
 
-// Define every click increasing
-clickData.forEach( (item, id) => {
-    clickChangeData(item, id);
-})
-
-// Buy system
+// Buy system (passive)
 function buyPassive(item, id) {
     if (money >= item.cost) {
         money -= item.cost;
@@ -105,6 +87,45 @@ function buyPassive(item, id) {
     }
 }
 
+// CLICK SECTION
+// Click buff changing data
+function clickChangeData(item, id) {
+    const buff = document.getElementById(`click-${id}-buff`);
+    const btn  = document.getElementById(`click-${id}-btn`);
+    buff.innerHTML = `+${item.buff}`;
+    btn.innerHTML = `$${item.cost}`
+}
+
+// Clicking on cookie
+function cookieClick() {
+    money += clickProfit;
+    counter.innerHTML = money;
+    clickEffect();
+} 
+
+// Define every click increasing
+clickData.forEach( (item, id) => {
+    clickChangeData(item, id);
+})
+
+// Click buff
+function clickBuff(id) {
+    clickProfit += clickData[id].buff;
+    clickData[id].cost = Math.round( clickData[id].cost * 1.1);
+}
+
+// Create an click effect
+function clickEffect() {
+    let p = document.createElement('p');
+    p.innerHTML = `+${clickProfit}`;
+    p.className = 'effect';
+    document.body.appendChild(p);
+    setTimeout(() => {
+        p.remove();
+    }, 2000);
+}
+
+// buy system (click)
 function buyClick(item, id) {
     if (money >= item.cost) {
         console.log('Hello')
@@ -123,23 +144,6 @@ function updateStats() {
     passiveStats.innerHTML = `Passive: +${counterSpeed}/sec`;
 }
 
-// Click buff
-function clickBuff(id) {
-    clickProfit += clickData[id].buff;
-    clickData[id].cost = Math.round( clickData[id].cost * 1.1);
-}
-
-// Create an click effect
-function clickEffect() {
-    let p = document.createElement('p');
-    p.innerHTML = `+${clickProfit}`;
-    p.className = 'effect';
-    let body = document.getElementsByTagName('body');
-    document.body.appendChild(p);
-    setTimeout(() => {
-        p.remove();
-    }, 2000);
-}
-
+// Initial callings
 updateStats();
 passiveMoneyCounter();

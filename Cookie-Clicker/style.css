@@ -12,6 +12,7 @@ body {
 }
 
 h4 {
+    padding-bottom: 1px;
     border-bottom: 1px solid #b2bec3;
 }
 /* Money Counter  */
@@ -67,7 +68,7 @@ main {
 .passive-buff,
 .click-buff {
     display: flex;
-    width: 90%;
+    width: 95%;
     padding: 5px;
     margin-bottom: 5px;
     border-radius:5px;
@@ -100,6 +101,7 @@ main {
     width: 300px;
     height: 300px;
     border-radius: 150px;
+    cursor: pointer;
 
 }
 
