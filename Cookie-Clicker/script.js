@@ -6,7 +6,7 @@ let cookie  = document.getElementById('cookie');
 let money = 0;
 let counterSpeed = 1;
 let clickProfit = 1;
-
+let error = false;
 // Buffs data
 let passiveData = [
     {
@@ -141,7 +141,16 @@ function buyPassive(item, id) {
         passiveMoneyChangeData(item, id);
         multiplyModifyPassive();
         passiveData.forEach( (item, idx) => bigNums(item, idx, 'passive'));
-
+    } else if (money <= item.cost && !error) {
+        error = true;
+        const p = document.createElement('p');
+        p.id = 'error';
+        p.innerHTML = 'Not Enough Money!'
+        document.body.appendChild(p);
+        setTimeout(() => {
+            error = false;
+            p.remove()
+        }, 3000)
     }
 }
 
@@ -245,13 +254,3 @@ multiplyModifyPassive();
 multiplyModifyClick();
 passiveMoneyCounter();
 
-
-// if (item.cost > 999999999) {
-//     btn.innerHTML = `$${item.cost / 1000000000}bil`;
-// } else if (item.cost > 999999) {
-//     btn.innerHTML = `$${item.cost / 1000000}mil`;
-// } else if (item.cost > 999) {
-//     btn.innerHTML = `$${item.cost / 1000}k`;
-// } else {
-//     btn.innerHTML = `$${item.cost}`;
-// }
